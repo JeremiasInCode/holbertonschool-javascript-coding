@@ -12,9 +12,10 @@ request.get(apiUrl, (err, response, body) => {
   const bodyData = JSON.parse(body);
 
   bodyData.forEach(task => {
-    if (task.completed) {
-      completedTasks[task.userId] = (completedTasks[task.userId] || 0) + 1;
+    if (!completedTasks[task.userId]) {
+      completedTasks[task.userId] = 1; 
     }
+    completedTasks[task.userId] += 1;
   });
 
   console.log(completedTasks);
