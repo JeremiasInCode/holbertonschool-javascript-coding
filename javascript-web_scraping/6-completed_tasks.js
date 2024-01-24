@@ -4,19 +4,15 @@ const apiUrl = process.argv[2];
 
 request.get(apiUrl, (err, response, body) => {
   if (err) {
-    console.error(err);
-    return;
+    console.log(err);
   }
-
   const completedTasks = {};
-  const bodyData = JSON.parse(body);
-
-  bodyData.forEach(task => {
-    if (!completedTasks[task.userId]) {
-      completedTasks[task.userId] = 1; 
+  const todo = JSON.parse(body);
+  todo.forEach(task => {
+    if (task.completed) {
+      if (!completedTasks[task.userId]) completedTasks[task.userId] = 1;
+      else completedTasks[task.userId] += 1;
     }
-    completedTasks[task.userId] += 1;
   });
-
   console.log(completedTasks);
 });
