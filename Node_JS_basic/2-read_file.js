@@ -25,7 +25,9 @@ function countStudents(path) {
     console.log(`Number of students: ${totalStudents}`);
 
     for (const field in fieldCounts) {
-      console.log(`Number of students in ${field}: ${fieldCounts[field]}. List: ${lines.filter((line) => line.endsWith(field)).map((line) => line.split(',')[0]).join(', ')}`);
+      if (fieldCounts.hasOwnProperty(field)) {
+        console.log(`Number of students in ${field}: ${fieldCounts[field]}. List: ${lines.filter((line) => line.endsWith(field)).map((line) => line.split(',')[0]).join(', ')}`);
+      }
     }
   } catch (error) {
     throw new Error('Cannot load the database');
